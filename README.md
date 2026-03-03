@@ -1,4 +1,4 @@
-Technologies is used in this <br>
-Pyhton flask for backend<br>
-HTML CSS is used for frontend<br>
-Bootstrap
+<h1s style="color:Blue;">Technologies is used in this </h1><br>
+<h2>Pyhton flask for backend</h2><br>
+<h2>HTML CSS is used for frontend</h2><br>
+<h2>Bootstrap</h2>
