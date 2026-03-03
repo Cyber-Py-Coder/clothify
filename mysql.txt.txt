@@ -1,0 +1,101 @@
+this is code to make database in mysql
+
+CREATE TABLE cart (
+   id int NOT NULL AUTO_INCREMENT,
+   customer_id int DEFAULT NULL,
+   product_id int DEFAULT NULL,
+   PRIMARY KEY (id),
+   KEY customer_id (customer_id),
+   KEY product_id (product_id),
+   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE,
+   CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE
+ )
+
+
+CREATE TABLE `product` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `product_name` varchar(100) DEFAULT NULL,
+  `size` varchar(20) DEFAULT NULL,
+  `Gender` varchar(10) DEFAULT NULL,
+  `product_category` varchar(20) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `shop_id` (`shop_id`),
+  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shopkeeper` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+CREATE TABLE `delivery` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `name` varchar(30) DEFAULT NULL,
+   `email` varchar(20) DEFAULT NULL,
+   `address` varchar(1000) DEFAULT NULL,
+   `latitude` decimal(10,8) DEFAULT NULL,
+   `longitute` decimal(10,8) DEFAULT NULL,
+   `password` varchar(30) DEFAULT NULL,
+   `phone` varchar(10) DEFAULT NULL,
+   `bikenumber` varchar(10) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `customers` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `name` varchar(70) DEFAULT NULL,
+   `email` varchar(70) DEFAULT NULL,
+   `address` varchar(1000) DEFAULT NULL,
+   `latitude` decimal(10,8) DEFAULT NULL,
+   `longitute` decimal(11,8) DEFAULT NULL,
+   `password` varchar(50) DEFAULT NULL,
+   `phone` varchar(10) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `orders` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `customer_id` int DEFAULT NULL,
+   `order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+   `status` varchar(50) DEFAULT 'Pending',
+   `delivery_boy_id` int DEFAULT NULL,
+   `delivery_status` varchar(50) DEFAULT 'Pending',
+   PRIMARY KEY (`id`),
+   KEY `customer_id` (`customer_id`),
+   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `order_items` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `order_id` int DEFAULT NULL,
+   `product_id` int DEFAULT NULL,
+   `shop_id` int DEFAULT NULL,
+   `quantity` int DEFAULT '1',
+   `price` decimal(10,2) DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   KEY `order_id` (`order_id`),
+   KEY `product_id` (`product_id`),
+   KEY `shop_id` (`shop_id`),
+   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+   CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+   CONSTRAINT `order_items_ibfk_3` FOREIGN KEY (`shop_id`) REFERENCES `shopkeeper` (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+CREATE TABLE `shopkeeper` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `name` varchar(30) DEFAULT NULL,
+   `email` varchar(30) DEFAULT NULL,
+   `address` varchar(1000) DEFAULT NULL,
+   `latitude` decimal(10,8) DEFAULT NULL,
+   `longitute` decimal(10,8) DEFAULT NULL,
+   `password` varchar(30) DEFAULT NULL,
+   `phone` varchar(10) DEFAULT NULL,
+   `shop_name` varchar(30) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
