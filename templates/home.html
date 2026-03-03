@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* background: linear-gradient(135deg, #5f2c82, #49a09d); */
+        background-image: url("static/Copilot_20260211_150846.png");
+    }
+
+    .card {
+        background: white;
+        padding: 50px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+        color: #5f2c82;
+        margin-bottom: 30px;
+    }
+
+    .main-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .btn {
+        padding: 15px 40px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        background: linear-gradient(135deg, #5f2c82, #49a09d);
+        color: white;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        opacity: 0.9;
+    }
+
+    .roles {
+        margin-top: 30px;
+        display: none;
+        animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .role-btn {
+        display: block;
+        margin: 10px auto;
+        padding: 12px;
+        width: 80%;
+        border-radius: 8px;
+        border: 2px solid #5f2c82;
+        background: white;
+        color: #5f2c82;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .role-btn:hover {
+        background: #5f2c82;
+        color: white;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Welcome to Clothify</h1>
+
+    <div class="main-buttons">
+        <button class="btn" onclick="showLogin()">Login</button>
+        <button class="btn" onclick="showRegister()">Register</button>
+    </div>
+
+    <!-- Login Roles -->
+    <div class="roles" id="loginRoles">
+        <a href="/customer_login" class="role-btn">Login as Customer</a>
+        <a href="/shopkeeper_login" class="role-btn">Login as Shopkeeper</a>
+        <a href="/login/delivery" class="role-btn">Login as Delivery Pilot</a>
+    </div>
+
+    <!-- Register Roles -->
+    <div class="roles" id="registerRoles">
+        <a href="/customer_registration" class="role-btn">Register as Customer</a>
+        <a href="/shopkeeper_registration" class="role-btn">Register as Shopkeeper</a>
+        <a href="/delivery_registration" class="role-btn">Register as Delivery Pilot</a>
+    </div>
+
+</div>
+
+<script>
+    function showLogin() {
+        document.getElementById("loginRoles").style.display = "block";
+        document.getElementById("registerRoles").style.display = "none";
+    }
+
+    function showRegister() {
+        document.getElementById("registerRoles").style.display = "block";
+        document.getElementById("loginRoles").style.display = "none";
+    }
+</script>
+
+</body>
+</html>

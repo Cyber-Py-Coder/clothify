@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+</head>
+<body>
+
+<h2>My Orders</h2>
+
+{% if orders %}
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Product</th>
+        <th>Photo</th>
+        <th>Price</th>
+    </tr>
+
+    {% for order in orders %}
+    <tr>
+        <td>#{{ order.order_id }}</td>
+        <td>{{ order.order_date }}</td>
+        <td>{{ order.product_name }}</td>
+        <td>
+            <img src="{{ url_for('static', filename='uploads/' + order.photo) }}" width="80">
+        </td>
+        <td>₹ {{ order.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<h3>No Orders Yet</h3>
+{% endif %}
+
+<br><br>
+<a href="{{ url_for('cus_dash') }}">Back to Dashboard</a>
+
+</body>
+</html>

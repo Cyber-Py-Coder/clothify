@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shirts</title>
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    }
+
+    body{
+        background:#f8f9fd;
+        padding-bottom:90px;
+    }
+    /* HEADER */
+    .header{
+        background:white;
+        padding:15px 20px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 4px 12px rgba(0,0,0,0.05);
+        position:sticky;
+        top:0;
+        z-index:1000;
+    }
+
+    .location{
+        font-weight:600;
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        gap:5px;
+    }
+
+    .icons{
+        display:flex;
+        gap:15px;
+        font-size:20px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav{
+        position:fixed;
+        bottom:0;
+        width:100%;
+        background:white;
+        display:flex;
+        justify-content:space-around;
+        padding:12px 0;
+        box-shadow:0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    .bottom-nav div{
+        text-align:center;
+        font-size:12px;
+    }
+
+    .bottom-nav span{
+        display:block;
+        font-size:18px;
+    }
+
+    .active{
+        color:#6C5CE7;
+        font-weight:600;
+    }
+
+    /* PRODUCT GRID */
+        .products{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+            gap:25px;
+        }
+
+        /* CARD */
+        .product-card{
+            background:white;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 8px 20px rgba(0,0,0,0.05);
+            transition:0.3s ease;
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .product-card img{
+            width:100%;
+            height:250px;
+            object-fit: contain; 
+            background:#f8f9fd
+        }
+
+        .image-container{
+            width:100%;
+            height:250px;
+            overflow:auto;
+        }
+
+        .image-container img{
+            width:100%;
+            height:auto;
+        }
+        .card-body{
+            padding:15px;
+        }
+
+        .product-name{
+            font-size:16px;
+            font-weight:600;
+            margin-bottom:5px;
+        }
+
+        .shop-name{
+            font-size:13px;
+            color:gray;
+            margin-bottom:8px;
+        }
+
+        .size{
+            display:inline-block;
+            background:#6C5CE7;
+            color:white;
+            padding:5px 10px;
+            border-radius:15px;
+            font-size:12px;
+            margin-bottom:10px;
+        }
+
+        .btn{
+            display:block;
+            text-align:center;
+            background:#6C5CE7;
+            color:white;
+            padding:8px;
+            border-radius:20px;
+            text-decoration:none;
+            font-size:14px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#5a4bd6;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+    <div class="location" onclick="manualLocation()">
+        📍 <span id="user-location">Detecting...</span>
+        <div class="loader" id="loader">Loading...</div>
+    </div>
+    <div>
+        <h2>Clothify</h2>
+    </div>
+    
+    <a href="/cart" style="text-decoration: none; color: white;"><div class="icons">🛒 👤</div></a>
+</div>
+
+<h2>🤵 All Shirts Collection</h2>
+
+<div class="products">
+    {% for product in products %}
+    <div class="product-card">
+
+        <img src="{{ url_for('static', filename='uploads/' + product.photo) }}" alt="">
+
+        <div class="card-body">
+            <div class="product-name">{{ product.product_name }}
+                <span><h3>₹{{product.price}}</h3></span>
+            </div>
+            <div class="shop-name">Shop: {{ product.shop_name }}</div>
+            <div class="size">Size: {{ product.size }}</div>
+
+            <a href="#" class="btn">View Product</a>
+            <br>
+            <a href="{{ url_for('add_to_cart', product_id=product['id']) }}" class="btn btn-primary">Add to Cart</a>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+<div class="bottom-nav">
+    <a href="/customer_dashboad" style="text-decoration: none; color: white;"><div class="active"><span>🏠</span>Home</div></a>
+    <div><span>🛍️</span>Orders</div>
+    <div><span>❤️</span>Wishlist</div>
+    <div><span>👤</span>Profile</div>
+    <a href="/customer_logout" style="text-decoration: none; color: red;"><div><span>🚪</span>Logout</div></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clothing Shop Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    display:flex;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    position:fixed;
+    color:white;
+    border-right:1px solid rgba(255,255,255,0.2);
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-weight:600;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:14px 18px;
+    margin:12px 0;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:500;
+}
+
+.sidebar ul li:hover{
+    background:rgba(255,255,255,0.25);
+    transform:translateX(5px);
+}
+
+.sidebar ul li.active{
+    background:white;
+    color:#764ba2;
+}
+
+/* Main Content */
+.main-content{
+    margin-left:260px;
+    padding:40px;
+    width:100%;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.header h1{
+    font-size:32px;
+    color:white;
+    font-weight:600;
+}
+
+.profile{
+    background:white;
+    color:#764ba2;
+    padding:10px 25px;
+    border-radius:25px;
+    font-weight:500;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Cards */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    padding:30px;
+    border-radius:20px;
+    color:white;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+    transition:0.4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+.card h3{
+    margin-bottom:10px;
+    font-weight:400;
+    opacity:0.9;
+}
+
+.card h2{
+    font-size:28px;
+    font-weight:600;
+}
+
+/* Decorative Glow */
+.card::before{
+    content:'';
+    position:absolute;
+    width:120px;
+    height:120px;
+    background:rgba(255,255,255,0.2);
+    border-radius:50%;
+    top:-30px;
+    right:-30px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .sidebar{
+        width:200px;
+    }
+    .main-content{
+        margin-left:200px;
+        padding:20px;
+    }
+}
+
+/* Logout Button */
+.logout{
+    position:absolute;
+    bottom:30px;
+    left:25px;
+    right:25px;
+    padding:14px;
+    text-align:center;
+    border-radius:12px;
+    background:linear-gradient(45deg,#ff416c,#ff4b2b);
+    color:white;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.3s ease;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.logout:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.4);
+    background:linear-gradient(45deg,#ff4b2b,#ff416c);
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>👕 {{ session['shop_name'] }}</h2>
+    <ul>
+        <li class="active">🏠 Dashboard</li>
+        <a href="/product_manage" style="text-decoration: none; color: white;"><li>🛍 Product Management</li></a>
+        <li>📂 Category Management</li>
+        <a href="{{ url_for('shop_orders') }}" style="text-decoration:none; color: white;"><li>📦 Orders Management</li></a>
+        <li>👥 Customer Management</li>
+    </ul>
+
+    <a href="/logout">
+        <div class="logout">
+            🚪 Logout 
+        </div>
+    </a>
+
+</div>
+
+<div class="main-content">
+
+    <div class="header">
+        <h1>Dashboard Overview</h1>
+        <div class="profile">Admin</div>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Sales</h3>
+            <h2>₹1,25,000</h2>
+        </div>
+        <div class="card">
+            <h3>Total Orders</h3>
+            <h2>320</h2>
+        </div>
+        <div class="card">
+            <h3>Total Products</h3>
+            <h2>150</h2>
+        </div>
+        <div class="card">
+            <h3>Total Customers</h3>
+            <h2>210</h2>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

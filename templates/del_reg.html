@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery Pilot Registeration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #5f2c82, #49a09d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #5f2c82;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #5f2c82;
+            outline: none;
+            box-shadow: 0 0 8px rgba(95, 44, 130, 0.3);
+        }
+
+        .location-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .location-row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #5f2c82, #49a09d);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .location-btn {
+            background: #f3f3f3;
+            color: #5f2c82;
+            border: 1px solid #5f2c82;
+        }
+
+        .location-btn:hover {
+            background: #5f2c82;
+            color: white;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: green;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .location-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Delivery Pilot Registeration</h2>
+
+    <form onsubmit="return validateForm()" action="/delivery" method="POST">
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="fullname" required>
+        </div>
+
+        <div class="form-group">
+            <label>Bike Number</label>
+            <input type="text" name="bikenumber" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <!-- Phone Validation -->
+        <div class="form-group">
+            <label>Phone Number (10 digits)</label>
+            <input type="text" id="phone" name="phone" maxlength="10"
+                   oninput="validatePhone()" required>
+            <div id="phoneMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Permanent Address</label>
+            <textarea name="address" rows="3" required></textarea>
+        </div>
+
+        <div class="location-row">
+            <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" id="latitude" name="latitude" required>
+            </div>
+
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" id="longitude" name="longitude" required>
+            </div>
+        </div>
+
+        <button type="button" class="btn location-btn" onclick="getLocation()">
+            Get Current Location
+        </button>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" name="password"
+                   onkeyup="checkPassword()" required>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirm_password"
+                   onkeyup="checkPassword()" required>
+            <div id="passwordMessage"></div>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+
+    </form>
+</div>
+
+<script>
+
+    function validatePhone() {
+        var phone = document.getElementById("phone");
+        var message = document.getElementById("phoneMessage");
+
+        // Remove non-numeric characters automatically
+        phone.value = phone.value.replace(/\D/g, '');
+
+        if (phone.value.length === 10) {
+            message.innerHTML = "Valid phone number ✓";
+            message.className = "success";
+        } else {
+            message.innerHTML = "Phone number must be exactly 10 digits";
+            message.className = "error";
+        }
+    }
+
+    function checkPassword() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        var message = document.getElementById("passwordMessage");
+
+        if (confirmPassword === "") {
+            message.innerHTML = "";
+            return;
+        }
+
+        if (password === confirmPassword) {
+            message.innerHTML = "Passwords match ✓";
+            message.className = "success";
+        } else {
+            message.innerHTML = "Passwords do not match ✗";
+            message.className = "error";
+        }
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById("latitude").value = position.coords.latitude;
+                document.getElementById("longitude").value = position.coords.longitude;
+            }, function(error) {
+                alert("Unable to retrieve location.");
+            });
+        }
+    }
+
+    function validateForm() {
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+
+        if (phone.length !== 10) {
+            alert("Phone number must be exactly 10 digits.");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+</body>
+</html>

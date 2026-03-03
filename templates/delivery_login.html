@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer login</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 40px 30px;
+    width: 350px;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    color: #fff;
+}
+
+.container h2 {
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.input-group input::placeholder {
+    color: #eee;
+}
+
+.input-group input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px #fff;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #fff;
+    color: #764ba2;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #f1f1f1;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.footer-text {
+    margin-top: 15px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+@media(max-width: 400px) {
+    .container {
+        width: 90%;
+        padding: 30px 20px;
+    }
+}
+</style>
+
+</head>
+<body>
+<div>
+    <h1>{{credential}}</h1>
+</div>
+
+<div class="container">
+    <h2>Welcome Back</h2>
+
+    <form action="/delivery_login_submit" method="post">
+        <div class="input-group">
+            <input type="tel" placeholder="Phone Number" name="phone" required>
+        </div>
+
+        <div class="input-group">
+            <input type="password" placeholder="Password" name="password" required>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="footer-text">
+        Secure Login Portal
+    </div>
+</div>
+
+</body>
+</html>

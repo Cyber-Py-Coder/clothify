@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeans Collection</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f8f9fd;
+            padding:20px;
+        }
+
+        h2{
+            margin-bottom:20px;
+        }
+
+        /* PRODUCT GRID */
+        .products{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+            gap:25px;
+        }
+
+        /* CARD */
+        .product-card{
+            background:white;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 8px 20px rgba(0,0,0,0.05);
+            transition:0.3s ease;
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .product-card img{
+            width:100%;
+            height:250px;
+            object-fit: contain; 
+            background:#f8f9fd
+        }
+
+        .image-container{
+            width:100%;
+            height:250px;
+            overflow:auto;
+        }
+
+        .image-container img{
+            width:100%;
+            height:auto;
+        }
+        .card-body{
+            padding:15px;
+        }
+
+        .product-name{
+            font-size:16px;
+            font-weight:600;
+            margin-bottom:5px;
+        }
+
+        .shop-name{
+            font-size:13px;
+            color:gray;
+            margin-bottom:8px;
+        }
+
+        .size{
+            display:inline-block;
+            background:#6C5CE7;
+            color:white;
+            padding:5px 10px;
+            border-radius:15px;
+            font-size:12px;
+            margin-bottom:10px;
+        }
+
+        .btn{
+            display:block;
+            text-align:center;
+            background:#6C5CE7;
+            color:white;
+            padding:8px;
+            border-radius:20px;
+            text-decoration:none;
+            font-size:14px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#5a4bd6;
+        }
+
+    </style>
+</head>
+<body>
+
+<h2>👖 All Jeans Collection</h2>
+
+<div class="products">
+    {% for product in products %}
+    <div class="product-card">
+
+        <img src="{{ url_for('static', filename='uploads/' + product.photo) }}" alt="">
+
+        <div class="card-body">
+            <div class="product-name">{{ product.product_name }}
+                <span><h3>₹{{product.price}}</h3></span>
+            </div>
+            <div class="shop-name">Shop: {{ product.shop_name }}</div>
+            <div class="size">Size: {{ product.size }}</div>
+            
+            <a href="#" class="btn">View Product</a>
+            <a href="{{ url_for('add_to_cart', product_id=product['id']) }}" class="btn btn-primary">Add to Cart</a>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

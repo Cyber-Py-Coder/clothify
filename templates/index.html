@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clothify - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8f9fd;
+    padding-bottom:90px;
+}
+
+/* HEADER */
+.header{
+    background:white;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.location{
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.icons{
+    display:flex;
+    gap:15px;
+    font-size:20px;
+}
+
+/* SEARCH */
+.search-box{
+    padding:20px;
+}
+
+.search-box input{
+    width:100%;
+    padding:14px 20px;
+    border:none;
+    border-radius:30px;
+    background:#fff;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    font-size:14px;
+}
+
+/* BANNER */
+.banner{
+    margin:0 20px;
+    padding:30px;
+    border-radius:20px;
+    color:white;
+    background:linear-gradient(135deg,#6C5CE7,#a29bfe);
+}
+
+.banner h2{
+    margin-bottom:10px;
+}
+
+.banner button{
+    padding:8px 18px;
+    border:none;
+    border-radius:20px;
+    background:white;
+    color:#6C5CE7;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* SECTION */
+.section{
+    padding:20px;
+}
+
+.section h3{
+    margin-bottom:15px;
+}
+
+/* CATEGORIES */
+.categories{
+    display:flex;
+    gap:15px;
+    overflow-x:auto;
+}
+
+.category{
+    min-width:80px;
+    text-align:center;
+}
+
+.category div{
+    background:white;
+    padding:20px;
+    border-radius:50%;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    font-size:24px;
+}
+
+.category p{
+    margin-top:8px;
+    font-size:13px;
+}
+
+/* SHOP CARD */
+.shop-card{
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+.shop-card img{
+    width:100%;
+    border-radius:12px;
+}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.product{
+    background:white;
+    border-radius:15px;
+    padding:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    transition:0.3s;
+}
+
+.product:hover{
+    transform:translateY(-5px);
+}
+
+.product img{
+    width:100%;
+    border-radius:12px;
+}
+
+.price{
+    font-weight:600;
+    color:#6C5CE7;
+}
+
+.product button{
+    width:100%;
+    margin-top:8px;
+    padding:6px;
+    border:none;
+    border-radius:20px;
+    background:#6C5CE7;
+    color:white;
+    cursor:pointer;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    padding:12px 0;
+    box-shadow:0 -4px 12px rgba(0,0,0,0.05);
+}
+
+.bottom-nav div{
+    text-align:center;
+    font-size:12px;
+}
+
+.bottom-nav span{
+    display:block;
+    font-size:18px;
+}
+
+.active{
+    color:#6C5CE7;
+    font-weight:600;
+}
+
+/* LOADER */
+.loader{
+    display:none;
+    font-size:12px;
+    color:gray;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="location" onclick="manualLocation()">
+        📍 <span id="user-location">Detecting...</span>
+        <div class="loader" id="loader">Loading...</div>
+    </div>
+    <div>
+        <h2>Clothify</h2>
+    </div>
+    
+    <a href="/cart" style="text-decoration: none; color: white;"><div class="icons">🛒 👤</div></a>
+</div>
+
+<div class="Welcome_name">
+    <h1>Welcome {{name}}</h1>
+</div>
+
+<!-- SEARCH -->
+<div class="search-box">
+    <input type="text" placeholder="Search for shirts, jeans, jackets...">
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+    <h2>Flat 40% Off on Winter Collection</h2>
+    <button>Shop Now</button>
+</div>
+
+<!-- CATEGORIES -->
+<div class="section">
+    <h3>Categories</h3>
+    <div class="categories">
+        <a href="#" style="color: black; text-decoration: none;"><div class="category"><div>👕</div><p>T-shirts</p></div></a>
+        <a href="/shirts" style="color: black; text-decoration: none;"><div class="category"><div>🤵</div><p>Shirts</p></div></a>
+        <a href="#" style="color: black; text-decoration: none;"><div class="category"><div>🏃‍♀️</div><p>Joggers</p></div></a>
+        <a href="/jeans" style="color: black; text-decoration: none;"><div class="category"><div>👖</div><p>jeans</p></div></a>
+        <a href="#" style="color: black; text-decoration: none;"><div class="category"><div>👟</div><p>Shoes</p></div></a>
+        <a href="#" style="color: black; text-decoration: none;"><div class="category"><div>⌚</div><p>Watches</p></div></a>
+
+    </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+    <h3>Trending Products</h3>
+    <div class="products">
+        <div class="product">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.PgO3-1Wix8jM9VHstd1U5AHaI4?w=998&h=1197&rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+            <h4>Denim Jacket</h4>
+            <div class="price">₹1299</div>
+            <button>Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="https://th.bing.com/th/id/OIP.i8OxuykD9LUbvD2d7io9BQHaJ4?w=168&h=220&c=7&r=0&o=7&pid=1.7&rm=3" alt="">
+            <h4>Casual Shirt</h4>
+            <div class="price">₹799</div>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    <a href="/customer_dashboad" style="text-decoration: none; color: white;"><div class="active"><span>🏠</span>Home</div></a>
+    <a href="{{ url_for('my_orders') }}"><div><span>🛍️</span>Orders</div></a>
+    <div><span>❤️</span>Wishlist</div>
+    <div><span>👤</span>Profile</div>
+    <a href="/customer_logout" style="text-decoration: none; color: red;"><div><span>🚪</span>Logout</div></a>
+</div>
+
+<script>
+
+// Load saved location if available
+window.onload = function() {
+    let savedLocation = localStorage.getItem("userLocation");
+    if(savedLocation){
+        document.getElementById("user-location").innerText = savedLocation;
+    } else {
+        getLocation();
+    }
+};
+
+function getLocation(){
+    document.getElementById("loader").style.display="block";
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        document.getElementById("user-location").innerText="Location not supported";
+    }
+}
+
+function showPosition(position){
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+    .then(res=>res.json())
+    .then(data=>{
+        let city = data.address.city || data.address.town || data.address.village || "";
+        let state = data.address.state || "";
+        let fullLocation = city + ", " + state;
+
+        document.getElementById("user-location").innerText = fullLocation;
+        localStorage.setItem("userLocation", fullLocation);
+        document.getElementById("loader").style.display="none";
+    });
+}
+
+function showError(){
+    document.getElementById("loader").style.display="none";
+    document.getElementById("user-location").innerText="Select Location";
+}
+
+// Manual Change
+function manualLocation(){
+    let manual = prompt("Enter your city and state:");
+    if(manual){
+        document.getElementById("user-location").innerText = manual;
+        localStorage.setItem("userLocation", manual);
+    }
+}
+
+</script>
+
+</body>
+</html>
