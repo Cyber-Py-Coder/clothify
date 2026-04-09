@@ -14,7 +14,8 @@ mydb=mysql.connector.connect(
     user='avnadmin',
     password='AVNS_i_QwNQUWmZ0svAl5VPs',
     database='clothify',
-    port=24620
+    port=24620,
+    
 )
 
 @app.route('/')
