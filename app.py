@@ -10,10 +10,11 @@ app.secret_key='secret123'
 upload_folder = "static/uploads"
 
 mydb=mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='root',
-    database='clothify'
+    host='clothify-clothify.d.aivencloud.com',
+    user='avnadmin',
+    password='AVNS_i_QwNQUWmZ0svAl5VPs',
+    database='clothify',
+    port=24620
 )
 
 @app.route('/')
