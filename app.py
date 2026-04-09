@@ -14,7 +14,7 @@ mydb=mysql.connector.connect(
     user='avnadmin',
     password='AVNS_i_QwNQUWmZ0svAl5VPs',
     database='clothify',
-    port=24620,
+    port=24624,
     ssl_ca="ssl/ca.pem",
     ssl_verify_cert=True
 )
