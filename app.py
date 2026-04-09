@@ -107,7 +107,12 @@ def jeans():
 def shirts():
     if "customer_name" in session:
         cursor=mydb.cursor(dictionary=True)
-        query='''select product.id, product_name, shop_name, size, photo, price from product inner join shopkeeper on product.shop_id = shopkeeper.id where product_category="shirts"'''
+        query = '''
+            SELECT product.id, product_name, shop_name, size, photo, price
+            FROM product
+            INNER JOIN shopkeeper ON product.shop_id = shopkeeper.id
+            WHERE product_category = 'Shirts'
+            '''
         cursor.execute(query)
         products=cursor.fetchall()
         cursor.close()
