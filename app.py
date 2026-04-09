@@ -15,7 +15,8 @@ mydb=mysql.connector.connect(
     password='AVNS_i_QwNQUWmZ0svAl5VPs',
     database='clothify',
     port=24620,
-    
+    ssl_ca="ssl/ca.pem",
+    ssl_verify_cert=True
 )
 
 @app.route('/')
