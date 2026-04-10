@@ -496,7 +496,30 @@ def dash():
     if 'shop_name' not in session:
         return redirect(url_for('shop_login'))
     
-    return render_template('shopkeeper_portal.html')
+    
+    cursor=mydb.cursor(dictionary=True)
+
+    query='select count(*) from order_items where shop_id=%s'
+    value=(session['shop_id'], )
+    cursor.execute(query,  value)
+    Total_order=cursor.fetchone()
+
+    query1='select sum(price) from  order_items where shop_id=%s'
+    value=(session['shop_id'], )
+    cursor.execute(query1, value)
+    Total_sale=cursor.fetchone()
+
+    query2='select count(*) from product where shop_id=%s'
+    value=(session['shop_id'], )
+    cursor.execute(query2, value)
+    Total_product=cursor.fetchone()
+
+    query3='SELECT COUNT(DISTINCT order_id) FROM order_items WHERE shop_id =%s'
+    value=(session['shop_id'], )
+    cursor.execute(query3, value)
+    total_cust=cursor.fetchone()
+
+    return render_template('shopkeeper_portal.html', total_cust=total_cust['COUNT(DISTINCT order_id)'],Total_product=Total_product['count(*)'],Total_order=Total_order['count(*)'], Total_sale=Total_sale['sum(price)'])
 
 #by ai shop order show
 
