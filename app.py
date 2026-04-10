@@ -302,7 +302,29 @@ def delivery_login_submit():
 @app.route('/delivery_dash')
 def delivery_dash():
     if "delivery_name" in session:
-        return render_template("delivery_portal.html")
+
+        cursor=mydb.cursor(dictionary=True)
+
+        query='select count(*) from  orders where delivery_boy_id=%s'
+        value=(session['delivery_id'],)
+        cursor.execute(query, value)
+        tot=cursor.fetchone()
+
+        query2="""
+                            SELECT 
+                                o.delivery_boy_id,
+                                SUM(oi.price * oi.quantity) AS total_amount,
+                                ROUND(SUM(oi.price * oi.quantity) * 0.10,2) AS ten_percent_cut
+                            FROM orders o
+                            JOIN order_items oi ON o.id = oi.order_id
+                            WHERE o.delivery_boy_id = %s
+                            GROUP BY o.delivery_boy_id
+                        """
+        value=(session['delivery_id'],)
+        cursor.execute(query2, value)
+        sal=cursor.fetchone()
+
+        return render_template("delivery_portal.html", tot=tot['count(*)'], sal=sal['ten_percent_cut'])
     return redirect(url_for('deliver_login_page'))
 
 #by ai for delivery boy
@@ -518,6 +540,7 @@ def dash():
     value=(session['shop_id'], )
     cursor.execute(query3, value)
     total_cust=cursor.fetchone()
+    cursor.close()
 
     return render_template('shopkeeper_portal.html', total_cust=total_cust['COUNT(DISTINCT order_id)'],Total_product=Total_product['count(*)'],Total_order=Total_order['count(*)'], Total_sale=Total_sale['sum(price)'])
 
