@@ -85,9 +85,28 @@
         color:#6C5CE7;
         font-weight:600;
     }
+.back-dashboard {
+    background-color: white;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.back-dashboard:hover {
+    background-color: #0d6efd;
+    color: white;
+}
     </style>
 </head>
 <body>
+
+<div style="position: absolute; top: 20px; right: 30px;">
+    <a href="{{ url_for('cus_dash') }}" class="back-dashboard">⬅ Dashboard</a>
+</div>
 
 <div class="cart-container">
     <h2 class="mb-4">Your Shopping Cart</h2>
