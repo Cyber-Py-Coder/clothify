@@ -2,13 +2,107 @@
 <html>
 <head>
     <title>My Orders</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(to right, #eef2f3, #dfe9f3);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            color: #555;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f1f7ff;
+            transition: 0.3s;
+        }
+
+        img {
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.1);
+        }
+
+        .no-orders {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            color: #777;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #45a049;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .price {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+    </style>
+
 </head>
 <body>
 
-<h2>My Orders</h2>
+<div class="container">
+
+<h2>🛒 My Orders</h2>
 
 {% if orders %}
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>Order ID</th>
         <th>Date</th>
@@ -25,17 +119,23 @@
         <td>
             <img src="{{ url_for('static', filename='uploads/' + order.photo) }}" width="80">
         </td>
-        <td>₹ {{ order.price }}</td>
+        <td class="price">₹ {{ order.price }}</td>
     </tr>
     {% endfor %}
 </table>
 
 {% else %}
-<h3>No Orders Yet</h3>
+<div class="no-orders">
+    <h3>😔 No Orders Yet</h3>
+    <p>Looks like you haven't placed any orders.</p>
+</div>
 {% endif %}
 
-<br><br>
-<a href="{{ url_for('cus_dash') }}">Back to Dashboard</a>
+<div style="text-align:center;">
+    <a href="{{ url_for('cus_dash') }}" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+
+</div>
 
 </body>
 </html>
