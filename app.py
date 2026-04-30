@@ -62,7 +62,33 @@ def Cus_login():
 def cus_dash():  #customer dashboard login only if customer log in
     if 'customer_name' not in session:
         return redirect(url_for('Cus_login'))
-    return render_template('index.html', name=session['customer_name'])
+    
+    cursor=mydb.cursor(dictionary=True)
+    query="select id,shop_name from shopkeeper"
+    cursor.execute(query)
+    shop=cursor.fetchall()
+    cursor.close()
+    return render_template('index.html', name=session['customer_name'], shops=shop)
+
+@app.route('/view_shop/<int:shop_id>')
+def view_shop(shop_id):
+
+    cursor = mydb.cursor(dictionary=True)
+
+    # Get shop details
+    cursor.execute("SELECT * FROM shopkeeper WHERE id = %s", (shop_id,))
+    shop = cursor.fetchone()
+
+    # Get products of this shop only
+    cursor.execute(
+        "SELECT id, product_name, price, photo FROM product WHERE shop_id=%s",
+        (shop_id,)
+    )
+    products = cursor.fetchall()
+
+    cursor.close()
+
+    return render_template('shop_page.html', shop=shop, products=products)
 
 @app.route('/login_submit', methods=["GET", "POST"])
 def submit_login():     #customer login with redirection to index page
@@ -442,32 +468,34 @@ def shopo():
     mydb.commit()
     cursor.close()
 
-    return render_template('shopkeeper_portal.html')
+    return redirect(url_for('dash'))
 
 @app.route('/shopkeeper_login')
-def sho_login(): #shopkeeper's login template
+def sho_login():
     return render_template('shop_login.html')
 
-@app.route('/shop_login_submit', methods=["POST", "GET"])
-def shop_login():  # shopkeeper login portal with portal redirection
-    if 'shop_name' in session:
-        return redirect(url_for('dash'))
-    
+
+@app.route('/shop_login_submit', methods=["POST"])
+def shop_login():
+
     phone = request.form.get('phone')
     password = request.form.get('password')
 
     cursor = mydb.cursor(dictionary=True)
-    query = 'select id, shop_name from shopkeeper where phone=%s and password=%s'
+
+    query = "SELECT id, shop_name FROM shopkeeper WHERE phone=%s AND password=%s"
     cursor.execute(query, (phone, password))
     user = cursor.fetchone()
+
     cursor.close()
 
     if user:
-        # ✅ SESSION ADD HERE
+        # SESSION SET
         session['shop_id'] = user['id']
         session['shop_name'] = user['shop_name']
 
-        return render_template('shopkeeper_portal.html', name=user['shop_name'])
+        # REDIRECT TO DASHBOARD (BEST PRACTICE)
+        return redirect(url_for('dash'))
 
     return render_template("shop_login.html", credential="Wrong Credentials")
 

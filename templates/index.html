@@ -205,6 +205,72 @@ body{
     font-size:12px;
     color:gray;
 }
+
+.section {
+    padding: 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Grid Layout */
+.shop-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Card Design */
+.shop-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    text-align: center;
+}
+
+.shop-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.shop-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Center Content */
+.shop-info {
+    padding: 15px;
+}
+
+.shop-info h4 {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* Button */
+.shop-info button {
+    background: linear-gradient(45deg, #6C5CE7, #00B894);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.shop-info button:hover {
+    opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
@@ -251,23 +317,24 @@ body{
     </div>
 </div>
 
-<!-- PRODUCTS -->
+<!-- TRENDING SHOPS -->
 <div class="section">
-    <h3>Trending Products</h3>
-    <div class="products">
-        <div class="product">
-            <img src="https://tse1.mm.bing.net/th/id/OIP.PgO3-1Wix8jM9VHstd1U5AHaI4?w=998&h=1197&rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
-            <h4>Denim Jacket</h4>
-            <div class="price">₹1299</div>
-            <button>Add to Cart</button>
-        </div>
+    <h3 class="section-title">🔥 Trending Shops</h3>
 
-        <div class="product">
-            <img src="https://th.bing.com/th/id/OIP.i8OxuykD9LUbvD2d7io9BQHaJ4?w=168&h=220&c=7&r=0&o=7&pid=1.7&rm=3" alt="">
-            <h4>Casual Shirt</h4>
-            <div class="price">₹799</div>
-            <button>Add to Cart</button>
+    <div class="shop-container">
+        {% for shop in shops %}
+        <div class="shop-card">
+
+            <div class="shop-info">
+                <h4>{{ shop.shop_name }}</h4>
+
+                <a href="{{ url_for('view_shop', shop_id=shop.id) }}">
+                    <button>Visit Shop</button>
+                </a>
+            </div>
+
         </div>
+        {% endfor %}
     </div>
 </div>
 

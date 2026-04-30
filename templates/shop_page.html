@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ shop.shop_name }}</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+}
+
+/* HEADER */
+.header{
+    background:white;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+
+.back-btn{
+    background:#6C5CE7;
+    color:white;
+    padding:8px 14px;
+    border-radius:20px;
+    text-decoration:none;
+}
+
+/* CENTER CARD */
+.wrapper{
+    display:flex;
+    justify-content:center;
+    padding:30px;
+}
+
+/* PRODUCT CARD */
+.card{
+    width:340px;
+    background:white;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    overflow:hidden;
+}
+
+/* IMAGE */
+.img-box{
+    height:280px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f7f7f7;
+}
+
+.img-box img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+}
+
+/* CONTENT */
+.content{
+    padding:15px;
+}
+
+.title{
+    font-size:18px;
+    font-weight:700;
+    margin:5px 0;
+}
+
+.price{
+    font-size:18px;
+    font-weight:700;
+    color:#000;
+    margin-bottom:8px;
+}
+
+.shop{
+    color:gray;
+    font-size:13px;
+}
+
+/* BADGE */
+.badge{
+    display:inline-block;
+    background:#6C5CE7;
+    color:white;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    margin-top:8px;
+}
+
+/* BUTTONS */
+.btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:25px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.view{
+    background:#6C5CE7;
+    color:white;
+}
+
+.cart{
+    background:linear-gradient(45deg,#00b894,#55efc4);
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <a href="{{ url_for('cus_dash') }}" class="back-btn">⬅ Back</a>
+    <h3>{{ shop.shop_name }}</h3>
+    <a href="/cart">🛒</a>
+</div>
+
+<!-- PRODUCT CARD -->
+<div class="wrapper">
+
+    {% for product in products %}
+    <div class="card">
+
+        <div class="img-box">
+            {% if product.photo %}
+            <img src="{{ url_for('static', filename='uploads/' ~ product.photo) }}">
+            {% else %}
+            <img src="https://via.placeholder.com/300">
+            {% endif %}
+        </div>
+
+        <div class="content">
+
+            <div class="title">{{ product.product_name }}</div>
+            <div class="price">₹{{ product.price }}</div>
+            <div class="shop">Shop: {{ shop.shop_name }}</div>
+
+            {% if product.size %}
+            <div class="badge">Size: {{ product.size }}</div>
+            {% endif %}
+
+
+            <a href="{{ url_for('add_to_cart', product_id=product.id) }}">
+                <button class="btn cart">Add to Cart</button>
+            </a>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
